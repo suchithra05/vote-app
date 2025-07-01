@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cat vs Dog Voting</title>
+  <style>
+    body { text-align: center; font-family: sans-serif; }
+    h1 { font-size: 48px; margin-top: 40px; }
+    .btn {
+      font-size: 20px;
+      padding: 12px 20px;
+      margin: 20px;
+      display: inline-block;
+      width: 200px;
+      border: none;
+      background: #f9f9f9;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn:hover { background: #eee; }
+    .result { font-size: 28px; margin-top: 30px; }
+    img {
+      width: 100px;
+      height: 100px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐱 Cat vs Dog 🐶</h1>
+  <form method="POST" action="/vote">
+    <button class="btn" name="vote" value="cat">
+      <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Cat" />
+      Vote Cat 🐱
+    </button>
+
+    <button class="btn" name="vote" value="dog">
+      <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" alt="Dog" />
+      Vote Dog 🐶
+    </button>
+  </form>
+
+  <div class="result">
+    🐱: {{ cat }} | 🐶: {{ dog }}
+  </div>
+
+  <script>
+    const form = document.querySelector("form");
+    form.addEventListener("click", () => setTimeout(() => location.reload(), 100));
+  </script>
+</body>
+</html>
