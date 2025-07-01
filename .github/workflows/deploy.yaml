@@ -9,6 +9,7 @@ on:
       - app/**
       - templates/**
       - .github/workflows/**
+      - README.md
 
 jobs:
   deploy:
@@ -50,4 +51,4 @@ jobs:
 
     - name: Update image in Kubernetes
       run: |
-        kubectl set image deployment/vote-deployment vote-app=your-dockerhub-username/voting-app:latest
+        kubectl set image deployment/vote-deployment vote-app=your-dockerhub-username/voting-app:latest 
