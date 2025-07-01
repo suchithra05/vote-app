@@ -27,11 +27,11 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t your-dockerhub-username/voting-app:latest .
+        docker build -t suchithra05/voting-app:latest .
 
     - name: Push to Docker Hub
       run: |
-        docker push your-dockerhub-username/voting-app:latest
+        docker push suchithra05/voting-app:latest
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2
@@ -47,8 +47,8 @@ jobs:
 
     - name: Set up kubeconfig for EKS
       run: |
-        aws eks update-kubeconfig --region ap-south-1 --name your-cluster-name
+        aws eks update-kubeconfig --region us-east-1 --name demo-nodeport
 
     - name: Update image in Kubernetes
       run: |
-        kubectl set image deployment/vote-deployment vote-app=your-dockerhub-username/voting-app:latest 
+        kubectl set image deployment/vote-deployment vote-app=suchithra05/voting-app:latest 
