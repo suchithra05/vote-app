@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cat vs Dog Voting</title>
+  <title>Cat vs Dog vs Buffalo Voting</title>
   <style>
     body { text-align: center; font-family: sans-serif; }
     h1 { font-size: 48px; margin-top: 40px; }
@@ -27,7 +27,7 @@
   </style>
 </head>
 <body>
-  <h1>🐱 Cat vs Dog 🐶</h1>
+  <h1>🐱 Cat vs Dog vs Buffalo 🐶🐃</h1>
   <form method="POST" action="/vote">
     <button class="btn" name="vote" value="cat">
       <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Cat" />
@@ -38,10 +38,15 @@
       <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" alt="Dog" />
       Vote Dog 🐶
     </button>
+
+    <button class="btn" name="vote" value="buffalo">
+      <img src="https://cdn-icons-png.flaticon.com/512/584/584052.png" alt="Buffalo" />
+      Vote Buffalo 🐃
+    </button>
   </form>
 
   <div class="result">
-    🐱: {{ cat }} | 🐶: {{ dog }}
+    🐱: {{ cat }} | 🐶: {{ dog }} | 🐃: {{ buffalo }}
   </div>
 
   <script>
