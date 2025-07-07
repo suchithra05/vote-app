@@ -42,7 +42,7 @@ jobs:
       with:
         version: 'latest'  
 
-    - name: 🔄 Update kubeconfig to connect to EKS
+    - name: Update kubeconfig to connect to EKS
       run: |
         aws eks update-kubeconfig --name demo-nodeport --region us-east-1
 
