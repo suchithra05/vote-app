@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_NAME: suchithra05/voting-app:latest # 🔁 Change this to your Docker Hub image name
+      IMAGE_NAME: suchithra05/voting-app # 🔁 Change this to your Docker Hub image name
 
     steps:
     - name: Checkout code
