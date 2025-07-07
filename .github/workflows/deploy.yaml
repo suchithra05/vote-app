@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_NAME: suchithra05/voting-app # 🔁 Change this to your Docker Hub image name
+      IMAGE_NAME: suchithra05/voting-app  # 🔁 Your Docker Hub image name
 
     steps:
     - name: Checkout code
@@ -25,9 +25,9 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build and Push Docker Image
+    - name: 🔨 Build and Push Docker Image (no-cache)
       run: |
-        docker build -t $IMAGE_NAME:latest .
+        docker build --no-cache -t $IMAGE_NAME:latest .
         docker push $IMAGE_NAME:latest
 
     - name: Set up AWS Credentials
@@ -49,3 +49,7 @@ jobs:
     - name: 🚀 Update Image in EKS Deployment
       run: |
         kubectl set image deployment/voting-app voting-app=$IMAGE_NAME:latest
+
+    - name: 🔁 Force restart to pull updated image
+      run: |
+        kubectl rollout restart deployment/voting-app
