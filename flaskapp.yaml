@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: voting-app
-        image: your-dockerhub-username/voting-app:latest 
+        image: suchithra05/voting-app:latest 
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
