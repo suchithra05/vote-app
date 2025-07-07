@@ -40,7 +40,7 @@ jobs:
     - name: Set up kubectl
       uses: azure/setup-kubectl@v3
       with:
-        version: 'latest'  # You can also pin to a version like 'v1.29.0'
+        version: 'latest'  
 
     - name: 🔄 Update kubeconfig to connect to EKS
       run: |
