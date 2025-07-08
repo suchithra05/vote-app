@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      IMAGE_NAME: suchithra05/voting-app  # 🔁 Your Docker Hub image name
+      IMAGE_NAME: suchithra05/voting-app  
 
     steps:
     - name: Checkout code
@@ -25,7 +25,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: 🔨 Build and Push Docker Image (no-cache)
+    - name: Build and Push Docker Image (no-cache)
       run: |
         docker build --no-cache -t $IMAGE_NAME:latest .
         docker push $IMAGE_NAME:latest
@@ -46,10 +46,10 @@ jobs:
       run: |
         aws eks update-kubeconfig --name demo-nodeport --region us-east-1
 
-    - name: 🚀 Update Image in EKS Deployment
+    - name: Update Image in EKS Deployment
       run: |
         kubectl set image deployment/voting-app voting-app=$IMAGE_NAME:latest
 
-    - name: 🔁 Force restart to pull updated image
+    - name: Force restart to pull updated image
       run: |
         kubectl rollout restart deployment/voting-app
