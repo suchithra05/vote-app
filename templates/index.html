@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cat vs Dog vs Buffalo Voting</title>
+  <title>{{ title }}</title> <!-- Dynamic title from ConfigMap -->
   <style>
     body { text-align: center; font-family: sans-serif; }
     h1 { font-size: 48px; margin-top: 40px; }
@@ -24,10 +24,17 @@
       display: block;
       margin: 0 auto 10px;
     }
+    .footer {
+      margin-top: 40px;
+      font-size: 16px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
-  <h1>🐱 Cat vs Dog 🐶 vs Buffalo 🐃</h1>
+
+  <h1>{{ title }}</h1> <!-- Dynamic heading from ConfigMap -->
+
   <form method="POST" action="/vote">
     <button class="btn" name="vote" value="cat">
       <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Cat" />
@@ -47,6 +54,11 @@
 
   <div class="result">
     🐱: {{ cat }} | 🐶: {{ dog }} | 🐃: {{ buffalo }}
+  </div>
+
+  <!-- 🔽 Show Redis Host from ConfigMap -->
+  <div class="footer">
+    Connected to Redis host: <strong>{{ redis_host }}</strong>
   </div>
 
   <script>

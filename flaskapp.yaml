@@ -21,6 +21,10 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        envFrom:                               
+        - configMapRef:
+            name: voting-app-config
+
 
 ---
 apiVersion: v1
