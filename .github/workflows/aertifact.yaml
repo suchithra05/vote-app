@@ -2,6 +2,19 @@ name: Build and Upload to JFrog
 
 on:
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Select branch to deploy'
+        required: true
+        default: 'dev'
+        type: string
+      environment:
+        description: 'Select environment'
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
 
 env:
   JFROG_CLI_OFFER_CONFIG: false
