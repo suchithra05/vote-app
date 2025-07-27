@@ -39,7 +39,7 @@ jobs:
           jfrog config add my-jfrog-server \
             --url=https://trial1e0fhi.jfrog.io/artifactory \
             --user=${{ secrets.JFROG_USERNAME }} \
-            --password=${{ secrets.JFROG_PASSWORD }} \
+            --apikey=${{ secrets.JFROG_API_KEY }} \
             --interactive=false
 
       - name: Upload artifact to JFrog
