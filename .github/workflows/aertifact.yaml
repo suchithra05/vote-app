@@ -37,7 +37,7 @@ jobs:
       - name: Configure JFrog CLI
         run: |
           jfrog config add my-jfrog-server \
-            --url=https://trial1e0fhi.jfrog.io/artifactory \
+            --url=https://trial1e0fhi.jfrog.io \
             --user=${{ secrets.JFROG_USERNAME }} \
             --apikey=${{ secrets.JFROG_API_KEY }} \
             --interactive=false
