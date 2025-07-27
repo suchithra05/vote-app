@@ -1,0 +1,50 @@
+name: Build and Upload to JFrog
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # 👈 Enables manual trigger from GitHub UI
+
+env:
+  JFROG_CLI_OFFER_CONFIG: false
+  JFROG_REPO: vote-app-local
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install zip
+        run: sudo apt-get update && sudo apt-get install zip -y
+
+      - name: Zip the app
+        run: |
+          mkdir -p build
+          zip -r build/vote-app.zip app templates requirements.txt run.py \
+            -x "**/.git*" "**/.github*" "**/redis-logs*" "**/workflows*"
+
+      - name: Download JFrog CLI
+        run: |
+          curl -fL https://getcli.jfrog.io | sh
+          sudo mv jfrog /usr/local/bin/
+
+      - name: Configure JFrog CLI
+        run: |
+          jfrog config add my-jfrog-server \
+            --url=https://trial1e0fhi.jfrog.io/artifactory \
+            --user=${{ secrets.JFROG_USERNAME }} \
+            --password=${{ secrets.JFROG_PASSWORD }} \
+            --interactive=false
+
+      - name: Upload artifact to JFrog
+        run: |
+          jfrog rt u "build/vote-app.zip" "${JFROG_REPO}/vote-app.zip" --server-id=my-jfrog-server
