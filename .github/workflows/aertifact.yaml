@@ -31,7 +31,7 @@ jobs:
       - name: Prepare build folder with code and dependencies
         run: |
           mkdir -p build
-          cp -r app templates requirements.txt run.py dependencies build/
+          cp -r app templates requirements.txt dependencies build/
 
       - name: Zip the entire build
         run: |
