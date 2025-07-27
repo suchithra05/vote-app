@@ -1,7 +1,7 @@
 name: Build and Upload to JFrog
 
 on:
-  workflow_dispatch:  # 👈 Enables manual trigger from GitHub UI
+  workflow_dispatch:
 
 env:
   JFROG_CLI_OFFER_CONFIG: false
@@ -37,7 +37,7 @@ jobs:
       - name: Configure JFrog CLI
         run: |
           jfrog config add my-jfrog-server \
-            --url=https://trial1e0fhi.jfrog.io \
+            --url=https://trial1e0fhi.jfrog.io/artifactory \
             --user=${{ secrets.JFROG_USERNAME }} \
             --apikey=${{ secrets.JFROG_API_KEY }} \
             --interactive=false
@@ -45,3 +45,33 @@ jobs:
       - name: Upload artifact to JFrog
         run: |
           jfrog rt u "build/vote-app.zip" "${JFROG_REPO}/vote-app.zip" --server-id=my-jfrog-server
+
+  download-and-unzip:
+    runs-on: ubuntu-latest
+    needs: build-and-upload
+
+    steps:
+      - name: Download JFrog CLI
+        run: |
+          curl -fL https://getcli.jfrog.io | sh
+          sudo mv jfrog /usr/local/bin/
+
+      - name: Configure JFrog CLI
+        run: |
+          jfrog config add my-jfrog-server \
+            --url=https://trial1e0fhi.jfrog.io \
+            --user=${{ secrets.JFROG_USERNAME }} \
+            --apikey=${{ secrets.JFROG_API_KEY }} \
+            --interactive=false
+
+      - name: Download artifact from JFrog
+        run: |
+          mkdir -p download
+          jfrog rt dl "${JFROG_REPO}/vote-app.zip" download/vote-app.zip --server-id=my-jfrog-server
+
+      - name: Unzip and list contents
+        run: |
+          unzip download/vote-app.zip -d extracted
+          ls -R extracted > listing.txt
+          echo "Contents of the ZIP file:"
+          cat listing.txt
