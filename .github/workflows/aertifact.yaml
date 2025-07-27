@@ -23,10 +23,20 @@ jobs:
       - name: Install zip
         run: sudo apt-get update && sudo apt-get install zip -y
 
-      - name: Zip the app
+      - name: Install Python dependencies locally
+        run: |
+          mkdir -p dependencies
+          pip install --target=dependencies -r requirements.txt
+
+      - name: Prepare build folder with code and dependencies
         run: |
           mkdir -p build
-          zip -r build/vote-app.zip app templates requirements.txt run.py \
+          cp -r app templates requirements.txt run.py dependencies build/
+
+      - name: Zip the entire build
+        run: |
+          cd build
+          zip -r vote-app.zip . \
             -x "**/.git*" "**/.github*" "**/redis-logs*" "**/workflows*"
 
       - name: Download JFrog CLI
